@@ -20,10 +20,5 @@ public class StreamSearcher {
 			}
 		}).count();
 		// 3. Use the filter method with a lambda to extract all the String
-		// elements that match the String parameter.
-		
-		// 4. Return the count of the filtered stream.
-		
-
 	}
 }
