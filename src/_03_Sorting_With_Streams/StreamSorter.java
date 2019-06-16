@@ -22,5 +22,6 @@ public class StreamSorter {
 		ix.forEach((i) -> {
 			System.out.println(i);
 		});
+		
 	}
 }
