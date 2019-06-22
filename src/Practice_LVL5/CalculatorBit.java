@@ -2,7 +2,6 @@ package Practice_LVL5;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -41,11 +40,11 @@ public class CalculatorBit implements ActionListener {
 		right.setText(">>");
 		power.setText("^");
 		and.addActionListener((e) -> {
+			String holder = "";
 			int first = Integer.parseInt(textfield.getText());
 			int second = Integer.parseInt(textfield2.getText());
-			String primary = printByteBinary((byte) first);
-			String secondary = printByteBinary((byte) second);
-			String holder = "";
+			String primary = printLongBinary((long) first);
+			String secondary = printLongBinary((long) second);
 			for (int i = 0; i < primary.length(); i++) {
 				if (primary.substring(i, i + 1).equals(secondary.substring(i, i + 1))
 						&& primary.substring(i, i + 1).equals("1")) {
@@ -57,41 +56,81 @@ public class CalculatorBit implements ActionListener {
 			JOptionPane.showMessageDialog(null, convertToNumbers(holder));
 		});
 		or.addActionListener((e) -> {
-
+			int first = Integer.parseInt(textfield.getText());
+			int second = Integer.parseInt(textfield2.getText());
+			String primary = printLongBinary((long) first);
+			String secondary = printLongBinary((long) second);
+			String holder1 = "";
+			for (int i = 0; i < primary.length(); i++) {
+				if (primary.substring(i, i + 1).equals("1") || secondary.substring(i, i + 1).contentEquals("1")) {
+					holder1 += "1";
+				} else {
+					holder1 += "0";
+				}
+			}
+			JOptionPane.showMessageDialog(null, convertToNumbers(holder1));
 		});
 		right.addActionListener((e) -> {
-
+			int first = Integer.parseInt(textfield.getText());
+			int second = Integer.parseInt(textfield2.getText());
+			String primary = printLongBinary((long) first);
+			String holder1 = "";
+			for (int i = 0; i < second; i++) {
+				holder1 += "0";
+			}
+			holder1 = primary.substring(0, primary.length() - second);
+			JOptionPane.showMessageDialog(null, convertToNumbers(holder1));
 		});
 		left.addActionListener((e) -> {
-
+			int first = Integer.parseInt(textfield.getText());
+			int second = Integer.parseInt(textfield2.getText());
+			String primary = printLongBinary((long) first);
+			String holder1 = "";
+			holder1 = primary.substring(second, primary.length());
+			for (int i = 0; i < second; i++) {
+				holder1 += "0";
+			}
+			JOptionPane.showMessageDialog(null, convertToNumbers(holder1));
 		});
 		power.addActionListener((e) -> {
-
+			int first = Integer.parseInt(textfield.getText());
+			int second = Integer.parseInt(textfield2.getText());
+			String primary = printLongBinary((long) first);
+			String secondary = printLongBinary((long) second);
+			String holder1 = "";
+			for (int i = 0; i < primary.length(); i++) {
+				if (!primary.substring(i, i + 1).equals(secondary.substring(i, i + 1))) {
+					holder1 += "1";
+				} else {
+					holder1 += "0";
+				}
+			}
+			JOptionPane.showMessageDialog(null, convertToNumbers(holder1));
 		});
 		frame.setSize(200, 165);
 	}
 
-	public static String printByteBinary(byte b) {
-		int holder = b;
-		String l = "";
-		for (int i = 6; i >= 0; i--) {
-			if ((holder - Math.pow(2, i)) >= 0) {
-				holder = (int) (holder - Math.pow(2, i));
-				l += "1";
+	public static String printLongBinary(long l) {
+		long holder = l;
+		String f = "";
+		for (int x = 30; x >= 0; x--) {
+			if ((holder - Math.pow(2, x)) >= 0) {
+				holder = (int) (holder - Math.pow(2, x));
+				f += "1";
 			} else {
-				l += "0";
+				f += "0";
 			}
 		}
-		if (b < 0) {
-			JOptionPane.showMessageDialog(null, "The input value is invalid. Please check your inputs.");
+		if (l < 0) {
+			JOptionPane.showMessageDialog(null, "The imput value is invalid.");
 		}
-		return l;
+		return f;
 	}
 
 	public int convertToNumbers(String x) {
 		int holder = 0;
-		for (int i = 0; i < 6; i++) {
-			if (x.substring(6 - i, 6 - i + 1).equals("1")) {
+		for (int i = 0; i < x.length(); i++) {
+			if (x.substring(x.length() - i - 1, x.length() - i).equals("1")) {
 				holder += Math.pow(2, i);
 			} else {
 				holder += 0;
@@ -103,7 +142,5 @@ public class CalculatorBit implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
 	}
-
 }
